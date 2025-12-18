@@ -1,29 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import { loginApi } from "../../api/login";
+import { loginUser } from "../../api/Auth/login";
 
 export default function Login() {
   const { loginState, loginDispatch } = useAuth();
   const navigate = useNavigate();
-  const usernameChange = (u) => {
-    loginDispatch({ type: "USERNAME-CHANGE", Username: u.target.value });
+
+  const usernameChange = (e) => {
+    loginDispatch({
+      type: "USERNAME-CHANGE",
+      payload: e.target.value,
+    });
   };
-  const passwordChange = (p) => {
-    loginDispatch({ type: "PASSWORD-CHANGE", Password: p.target.value });
+
+  const passwordChange = (e) => {
+    loginDispatch({
+      type: "PASSWORD-CHANGE",
+      payload: e.target.value,
+    });
   };
+
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = await loginApi(loginState.Username, loginState.Password);
-      loginDispatch({ type: "LOGIN-SUCCESS" });
-      navigate("/dashboard");
 
-      console.log("Login Successful:", data);
+    try {
+      await loginUser(loginState.Username, loginState.Password);
+
+      // backend cookie is now set
+      loginDispatch({
+        type: "LOGIN-SUCCESS",
+        payload: { username: loginState.Username },
+      });
+
+      navigate("/dashboard");
     } catch {
-      alert("invalid credential");
+      alert("Invalid credentials");
     }
   };
-  console.log(loginState);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
@@ -31,16 +45,17 @@ export default function Login() {
           Welcome Back 👋
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={HandleSubmit}>
           <div>
             <label className="text-gray-700 text-sm font-medium">
-              username
+              Username
             </label>
             <input
-              type="username"
-              placeholder={loginState.Username}
+              type="text"
+              value={loginState.Username}
               onChange={usernameChange}
-              className="mt-1 w-full p-3 rounded-lg border border-gray-300 focus:ring focus:ring-blue-300 focus:border-blue-500 outline-none"
+              className="mt-1 w-full p-3 rounded-lg border border-gray-300"
+              required
             />
           </div>
 
@@ -50,37 +65,20 @@ export default function Login() {
             </label>
             <input
               type="password"
-              placeholder={loginState.Password}
+              value={loginState.Password}
               onChange={passwordChange}
-              className="mt-1 w-full p-3 rounded-lg border border-gray-300 focus:ring focus:ring-blue-300 focus:border-blue-500 outline-none"
+              className="mt-1 w-full p-3 rounded-lg border border-gray-300"
+              required
             />
-          </div>
-
-          <div className="flex justify-between text-sm text-gray-600">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="accent-blue-500" />
-              Remember me
-            </label>
-            <button type="button" className="text-blue-600 hover:underline">
-              Forgot Password?
-            </button>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
-            onClick={HandleSubmit}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
           >
             Login
           </button>
         </form>
-
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Don’t have an account?{" "}
-          <span className="text-blue-600 font-medium hover:underline cursor-pointer">
-            Sign Up
-          </span>
-        </p>
       </div>
     </div>
   );

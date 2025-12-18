@@ -1,17 +1,41 @@
 const LoginReducer = (state, action) => {
   switch (action.type) {
     case "USERNAME-CHANGE":
-      return { ...state, Username: action.Username };
+      return {
+        ...state,
+        Username: action.payload,
+      };
 
     case "PASSWORD-CHANGE":
-      return { ...state, Password: action.Password };
+      return {
+        ...state,
+        Password: action.payload,
+      };
+
+    case "AUTH-LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
 
     case "LOGIN-SUCCESS":
-      return { ...state, isLoggedIn: true };
+      return {
+        Username: "",
+        Password: "",
+        isLoggedIn: true,
+        user: action.payload || null,
+        loading: false,
+      };
 
     case "LOGOUT":
-      alert("you have been logged out");
-      return { ...state, token: "", isLoggedIn: false };
+      return {
+        Username: "",
+        Password: "",
+        isLoggedIn: false,
+        user: null,
+        loading: false,
+      };
+
     default:
       return state;
   }

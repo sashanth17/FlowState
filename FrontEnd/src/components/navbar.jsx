@@ -11,11 +11,11 @@ export default function Navbar() {
         <a href="/categories" className="hover:text-blue-600">
           Categories
         </a>
+        <a href="/blog/create" className="hover:text-blue-600">
+          Post
+        </a>
         <a href="/about" className="hover:text-blue-600">
           About
-        </a>
-        <a href="/contact" className="hover:text-blue-600">
-          Contact
         </a>
       </div>
     </nav>

@@ -1,13 +1,39 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import LoginReducer from "../reducers/LoginReducer";
+import { getUser } from "../api/Auth/getUser";
+
 const AuthContext = createContext();
 
+const initialState = {
+  Username: "",
+  Password: "",
+  isLoggedIn: false,
+  user: null,
+  loading: true,
+};
+
 const AuthProvider = ({ children }) => {
-  const [loginState, loginDispatch] = useReducer(LoginReducer, {
-    Username: "",
-    Password: "",
-    isLoggedIn: false,
-  });
+  const [loginState, loginDispatch] = useReducer(LoginReducer, initialState);
+
+  // 🔐 CHECK AUTH ONLY ON FIRST LOAD
+  useEffect(() => {
+    const checkAuth = async () => {
+      loginDispatch({ type: "AUTH-LOADING" });
+
+      try {
+        const user = await getUser(); // backend validates cookie
+        loginDispatch({
+          type: "LOGIN-SUCCESS",
+          payload: user,
+        });
+      } catch {
+        loginDispatch({ type: "LOGOUT" });
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   return (
     <AuthContext.Provider value={{ loginState, loginDispatch }}>
       {children}
@@ -15,7 +41,6 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const useAuth = () => {
-  return useContext(AuthContext);
-};
-export { useAuth, AuthProvider };
+const useAuth = () => useContext(AuthContext);
+
+export { AuthProvider, useAuth };

@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const goToSite = () => navigate("/login");
+  const goToSite = () => navigate("/dashboard");
+  const goToLogin = () => navigate("/login");
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-6">
@@ -12,6 +13,12 @@ const Landing = () => {
         onClick={goToSite}
       >
         Get Started
+      </button>
+      <button
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        onClick={goToLogin}
+      >
+        Login
       </button>
     </div>
   );
