@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <nav className="bg-gray-50 border-b">
+    <nav className="bg-rose-400 border-b">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6 text-gray-700 text-sm">
         <a href="/dashboard" className="hover:text-blue-600">
           Home
@@ -14,8 +14,11 @@ export default function Navbar() {
         <a href="/blog/create" className="hover:text-blue-600">
           Post
         </a>
-        <a href="/about" className="hover:text-blue-600">
-          About
+        <a href="/drafts" className="hover:text-blue-600">
+          Drafts
+        </a>
+        <a href="/Profile" className="hover:text-blue-600 flex-row-reverse">
+          Profile
         </a>
       </div>
     </nav>

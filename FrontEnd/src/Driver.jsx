@@ -5,10 +5,11 @@ import Landing from "./LandingPage";
 import Login from "./pages/Auth/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import BlogDashboard from "./pages/Blogs/BlogListing";
-import AboutMe from "./pages/AboutMe";
 
 import BlogRoutes from "./pages/Blogs/routes";
 import BlogThemeRoutes from "./pages/BlogThemes/routes";
+import DraftRoutes from "./pages/Drafts/routes";
+import ProfileRoutes from "./pages/Profile/routes";
 
 import { useAuth } from "./context/authContext";
 
@@ -29,9 +30,10 @@ const DriverRoutes = () => {
       <Route element={<Layout />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="blogs" element={<BlogDashboard />} />
-        <Route path="about" element={<AboutMe />} />
         {BlogRoutes}
         {BlogThemeRoutes}
+        {DraftRoutes}
+        {ProfileRoutes}
       </Route>
     </Routes>
   );

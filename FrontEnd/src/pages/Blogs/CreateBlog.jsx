@@ -8,6 +8,7 @@ const CreateBlog = () => {
   const publishBlog = async () => {
     console.log(form);
     const response = await PostBlog(form);
+    dispatch({ type: "RESET" });
   };
 
   const resetForm = () => {
@@ -64,6 +65,9 @@ const CreateBlog = () => {
             }
             className="w-full rounded-lg border border-gray-300 px-4 py-2"
           >
+            <option key={0} value={"select your category"}>
+              {"select your category"}
+            </option>
             {categories &&
               categories.map((element) => (
                 <option key={element.id} value={element.id}>

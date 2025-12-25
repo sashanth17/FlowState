@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import api from "./axios";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function PostBlog(form) {
@@ -8,9 +8,7 @@ export async function PostBlog(form) {
     if (value !== null) formData.append(key, value);
   });
   try {
-    const response = await axios.post(`${BASE_URL}/Blogs/Create/`, formData, {
-      withCredentials: true, // Important to receive secure cookie
-    });
+    const response = await api.post(`${BASE_URL}/Blogs/Create/`, formData);
 
     return response.data; // Token or success message
   } catch (err) {

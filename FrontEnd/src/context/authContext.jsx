@@ -8,7 +8,15 @@ const initialState = {
   Username: "",
   Password: "",
   isLoggedIn: false,
-  user: null,
+  user: {
+    id: null,
+    username: null,
+    email: null,
+    bio: null,
+    instagram: null,
+    linkedin: null,
+    profile_picture: null,
+  },
   loading: true,
 };
 
@@ -33,7 +41,7 @@ const AuthProvider = ({ children }) => {
 
     checkAuth();
   }, []);
-
+  console.table(loginState.user);
   return (
     <AuthContext.Provider value={{ loginState, loginDispatch }}>
       {children}

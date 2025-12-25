@@ -1,4 +1,10 @@
-const BlogCard = ({ SrcImage, Title, content, category, author }) => {
+const BlogCard = ({
+  SrcImage,
+  Title,
+  content,
+  category = null,
+  author = null,
+}) => {
   return (
     <div className="flex flex-col bg-white shadow-md border border-gray-200 rounded-xl overflow-hidden w-full max-w-sm">
       <img src={SrcImage} alt={Title} className="w-full h-48 object-cover" />
@@ -20,11 +26,6 @@ const BlogCard = ({ SrcImage, Title, content, category, author }) => {
         <p className="text-gray-700 text-sm flex-grow line-clamp-3">
           {content}
         </p>
-
-        {/* Button */}
-        <button className="mt-4 text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2">
-          Read more
-        </button>
       </div>
     </div>
   );
