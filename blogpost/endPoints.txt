@@ -1,0 +1,25 @@
+
+
+##for creating an blog
+http://127.0.0.1:8000/api/v1/Blogs/Create/
+{
+"Title":"Revolutionizing rural Telemedicine",
+"Content":"This is about creating an robust platform for doctors to store patient data",
+"Category":"technology",
+"IsDraft":false
+}
+
+##for getting the list of all Blogs
+http://127.0.0.1:8000/api/v1/Blogs/
+sample output:
+[
+    {
+        "Title": "My ID card",
+        "Content": "This is my Id card",
+        "Slug": "my-id-card",
+        "Author": 1,
+        "Category": "entertainment",
+        "FeatureImage": "/img/blogs_img/30-09-24_656PM_Microsoft_Lens.jpg",
+        "IsDraft":false
+    },
+...]
