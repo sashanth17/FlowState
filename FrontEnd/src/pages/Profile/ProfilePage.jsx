@@ -27,7 +27,7 @@ export default function ProfilePage() {
           {activeTab === "overview" && <ProfileOverview user={user} />}
           {activeTab === "blogs" && <ProfileBlogs />}
           {activeTab === "friends" && <ProfileFriends />}
-          {activeTab === "about" && <ProfileSettings user={user} />}
+          {activeTab === "settings" && <ProfileSettings user={user} />}
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ function ProfileTabs({ activeTab, setActiveTab }) {
     { id: "overview", label: "Overview" },
     { id: "blogs", label: "Blogs" },
     { id: "friends", label: "Friends" },
-    { id: "about", label: "settings" },
+    { id: "settings", label: "settings" },
   ];
 
   return (

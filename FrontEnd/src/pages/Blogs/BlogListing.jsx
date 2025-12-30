@@ -2,34 +2,38 @@ import { useEffect, useState } from "react";
 import { fetchBlogs } from "../../api/bloglist";
 import BlogCard from "../../components/blogCard";
 
+// MUI
+import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+
 const BlogDashboard = () => {
   const [blogs, setBlogs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const getBlogs = async () => {
-      try {
-        const response = await fetchBlogs();
-        console.log(response);
-        setBlogs(response); // save blogs in state
-      } catch (error) {
-        console.log("Error fetching blogs:", error);
-      }
+      const response = await fetchBlogs(currentPage);
+      setBlogs(response.results);
+      setTotalPages(response.total_pages);
     };
 
     getBlogs();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (_event, value) => {
+    if (value !== currentPage) setCurrentPage(value);
+  };
 
   return (
     <>
-      <div className="flex flex-wrap gap-6 justify-center mt-6">
-        {blogs.map((blog, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 justify-items-center mt-6">
+        {blogs.map((blog) => (
           <BlogCard
-            key={index}
-            SrcImage={
-              blog.FeatureImage
-                ? `http://127.0.0.1:8000${blog.FeatureImage}`
-                : "https://via.placeholder.com/300"
-            }
+            key={blog.id}
+            id={blog.id}
+            SrcImage={blog.FeatureImage}
             Title={blog.Title}
             content={blog.Content}
             category={blog.Category}
@@ -37,6 +41,15 @@ const BlogDashboard = () => {
           />
         ))}
       </div>
+
+      <Stack spacing={2} alignItems="center" marginY={4}>
+        <Typography>Page: {currentPage}</Typography>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      </Stack>
     </>
   );
 };

@@ -1,25 +1,26 @@
+import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
-    <nav className="bg-rose-400 border-b">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6 text-gray-700 text-sm">
-        <a href="/dashboard" className="hover:text-blue-600">
+    <nav className="bg-sky-500">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6 text-white text-sm">
+        <Link to="/dashboard" className="hover:text-slate-900 transition">
           Home
-        </a>
-        <a href="/blogs" className="hover:text-blue-600">
+        </Link>
+        <Link to="/blogs" className="hover:text-slate-900 transition">
           Blogs
-        </a>
-        <a href="/categories" className="hover:text-blue-600">
+        </Link>
+        <Link to="/categories" className="hover:text-slate-900 transition">
           Categories
-        </a>
-        <a href="/blog/create" className="hover:text-blue-600">
+        </Link>
+        <Link to="/blog/create" className="hover:text-slate-900 transition">
           Post
-        </a>
-        <a href="/drafts" className="hover:text-blue-600">
+        </Link>
+        <Link to="/drafts" className="hover:text-slate-900 transition">
           Drafts
-        </a>
-        <a href="/Profile" className="hover:text-blue-600 flex-row-reverse">
+        </Link>
+        <Link to="/profile" className="hover:text-slate-900 transition">
           Profile
-        </a>
+        </Link>
       </div>
     </nav>
   );

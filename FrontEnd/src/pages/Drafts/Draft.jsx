@@ -22,18 +22,16 @@ const DraftPage = () => {
   return (
     <>
       <div className="flex flex-wrap gap-6 justify-center mt-6">
+        {drafts.length == 0 && <h1>No drafts found</h1>}
         {drafts.map((blog, index) => (
           <BlogCard
             key={index}
-            SrcImage={
-              blog.FeatureImage
-                ? `http://127.0.0.1:8000${blog.FeatureImage}`
-                : "https://via.placeholder.com/300"
-            }
+            SrcImage={blog.FeatureImage}
             Title={blog.Title}
             content={blog.Content}
             category={blog.Category}
             author={blog.Author}
+            id={blog.id}
           />
         ))}
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { updateUser } from "../../../api/Auth/UpdateProfile";
+import toast from "react-hot-toast";
 function ProfileSettings() {
   const { loginState, loginDispatch } = useAuth();
   const user = loginState.user;
@@ -28,11 +29,13 @@ function ProfileSettings() {
     e.preventDefault();
     try {
       const user = await updateUser(formData);
+      toast.success("changes updated sucessfully");
       loginDispatch({
         type: "LOGIN-SUCCESS",
         payload: user,
       });
     } catch (err) {
+      toast.error("some error occoured try again");
       console.log(err);
     }
   }

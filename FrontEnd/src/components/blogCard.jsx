@@ -1,17 +1,28 @@
+import { useNavigate } from "react-router-dom";
 const BlogCard = ({
+  id,
   SrcImage,
   Title,
   content,
   category = null,
   author = null,
+  updateFeature = false,
 }) => {
+  const navigate = useNavigate();
+  const goToDetail = () => {
+    navigate(`/blogs/${id}`);
+  };
   return (
     <div className="flex flex-col bg-white shadow-md border border-gray-200 rounded-xl overflow-hidden w-full max-w-sm">
       <img src={SrcImage} alt={Title} className="w-full h-48 object-cover" />
 
       <div className="p-4 flex flex-col flex-grow">
         {/* Title + Category */}
-        <h5 className="text-gray-900 font-bold text-xl leading-tight">
+        <h5
+          className="text-gray-900 font-bold text-xl leading-tight cursor-pointer"
+          onClick={goToDetail}
+        >
+          {/* <a href={`blogs/${id}`}>detail</a> */}
           {Title}
         </h5>
         <span className="text-sm text-gray-500 mb-2">{category}</span>

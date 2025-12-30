@@ -1,18 +1,36 @@
-import axios from "axios";
 import api from "./axios";
-const BASE_URL = import.meta.env.VITE_API_URL;
 
-export async function PostBlog(form) {
-  const formData = new FormData();
-  Object.entries(form).forEach(([key, value]) => {
-    if (value !== null) formData.append(key, value);
-  });
+// Post a new blog
+export async function PostBlog(formData) {
   try {
-    const response = await api.post(`${BASE_URL}/Blogs/Create/`, formData);
-
-    return response.data; // Token or success message
+    // Uses the relative path; the api instance handles the baseURL
+    const response = await api.post("/Blogs/Create/", formData);
+    return response.data;
   } catch (err) {
-    console.error("post failed", err);
+    console.error("Post failed", err.response?.data || err.message);
+    throw err;
+  }
+}
+
+// Update an existing blog
+export async function UpdatBlog(id, formData) {
+  try {
+    // Hits the BlogDetailView endpoint
+    const response = await api.patch(`/Blogs/${id}`, formData);
+    return response.data;
+  } catch (err) {
+    console.error("Update failed", err.response?.data || err.message);
+    throw err;
+  }
+}
+
+export async function deleteBlogAPI(id) {
+  try {
+    const response = await api.delete(`/Blogs/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error("Update failed", err.response?.data || err.message);
     throw err;
   }
 }

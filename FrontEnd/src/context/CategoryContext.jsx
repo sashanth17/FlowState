@@ -5,16 +5,17 @@ const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
+  const loadCategories = async () => {
+    const data = await fetchCategoryies();
+    setCategories(data);
+  };
   useEffect(() => {
-    const loadCategories = async () => {
-      const data = await fetchCategoryies();
-      setCategories(data);
-    };
-
     loadCategories();
   }, []);
   return (
-    <CategoryContext.Provider value={{ categories, setCategories }}>
+    <CategoryContext.Provider
+      value={{ categories, setCategories, refetchCategories: loadCategories }}
+    >
       {children}
     </CategoryContext.Provider>
   );

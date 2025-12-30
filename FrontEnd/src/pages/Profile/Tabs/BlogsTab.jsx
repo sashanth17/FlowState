@@ -1,16 +1,32 @@
-import { Placeholder } from "../components/ProfileBlocks";
 import getMyBlogs from "../../../api/blogs/MyBlogs";
+import { useState, useEffect } from "react";
+import BlogCard from "../../../components/blogCard";
+
 function ProfileBlogs() {
-  const fn = async () => {
-    const data = await getMyBlogs();
-    console.log(data);
-  };
-  fn();
+  const [blogs, setMyPost] = useState([]); // empty array initially
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      const data = await getMyBlogs();
+      setMyPost(data);
+    }
+    fetchBlogs();
+  }, []);
+
   return (
-    <Placeholder
-      title="User Blogs"
-      description="User blog posts will appear here"
-    />
+    <div className="bg-white rounded-xl shadow-sm p-6 text-center py-14 flex flex-wrap gap-6 justify-center mt-6">
+      {blogs.map((blog) => (
+        <BlogCard
+          key={blog.id} // preferable over index
+          SrcImage={blog.FeatureImage}
+          Title={blog.Title}
+          content={blog.Content}
+          category={blog.Category}
+          author={blog.Author}
+          id={blog.id}
+        />
+      ))}
+    </div>
   );
 }
 

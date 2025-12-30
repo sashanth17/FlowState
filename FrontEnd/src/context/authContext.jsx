@@ -30,10 +30,11 @@ const AuthProvider = ({ children }) => {
 
       try {
         const user = await getUser(); // backend validates cookie
-        loginDispatch({
-          type: "LOGIN-SUCCESS",
-          payload: user,
-        });
+        user &&
+          loginDispatch({
+            type: "LOGIN-SUCCESS",
+            payload: user,
+          });
       } catch {
         loginDispatch({ type: "LOGOUT" });
       }
@@ -41,7 +42,6 @@ const AuthProvider = ({ children }) => {
 
     checkAuth();
   }, []);
-  console.table(loginState.user);
   return (
     <AuthContext.Provider value={{ loginState, loginDispatch }}>
       {children}
