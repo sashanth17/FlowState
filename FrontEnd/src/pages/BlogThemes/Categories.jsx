@@ -210,9 +210,11 @@ const Categories = () => {
 
     try {
       if (mode === "CREATE") {
+        toast.loading("please wait the category is being created");
         await CreateCategory(formData);
         toast.success("Category created 🎉");
       } else {
+        toast.loading("please wait the category is updating");
         await UpdateCategory(formData, categoryId); // <-- correctly send id
         toast.success("Category updated ✨");
       }

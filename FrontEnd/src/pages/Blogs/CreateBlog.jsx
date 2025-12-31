@@ -59,11 +59,17 @@ const CreateBlog = ({ mode = "CREATE" }) => {
       });
 
       if (mode === "CREATE") {
+        toast.success(
+          "please wait you will be notified once the blog is posted"
+        );
         const data = await PostBlog(formData);
         console.log(data);
         navigate(`/blogs/${data && data.id}`);
         toast.success("Published!");
       } else {
+        toast.success(
+          "please wait you will be notified once the blog is edited"
+        );
         await UpdatBlog(form.id, formData);
         toast.success("Updated!");
         navigate(`/blogs/${form.id}`);
@@ -87,6 +93,7 @@ const CreateBlog = ({ mode = "CREATE" }) => {
     );
     if (permission === loginState.user.username) {
       try {
+        toast.success("processing please wait");
         await deleteBlogAPI(initialBlog.id); // Wait for the server!
         toast.success("Your blog has been deleted successfully.");
         navigate("/blogs");

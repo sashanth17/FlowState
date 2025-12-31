@@ -119,10 +119,9 @@ function BlogDetailPage() {
           {updated && <span>• Updated: {updated}</span>}
         </div>
 
-        <div
-          className="prose prose-indigo max-w-none text-gray-800"
-          dangerouslySetInnerHTML={{ __html: Content }}
-        />
+        <div className="prose prose-indigo max-w-none text-gray-800 whitespace-pre-line">
+          {Content}
+        </div>
       </article>
     </main>
   );
