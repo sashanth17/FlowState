@@ -121,7 +121,10 @@ def UpdateUser(request):
 from .serializers import UserListSerializer
 from rest_framework.generics import ListAPIView
 from .Pagination import CustomPagination
+
 class UserListView(ListAPIView):
-    queryset=get_user_model().objects.all()
-    serializer_class=UserListSerializer
-    pagination_class=CustomPagination
+    serializer_class = UserListSerializer
+    pagination_class = CustomPagination
+    
+    def get_queryset(self):
+        return get_user_model().objects.all().order_by('-date_joined')
